@@ -81,8 +81,8 @@
 ## 📊 Visualizations
 
 ### MobileNetV2
-- [Confusion Matrix - MobileNetV2](YOUR_GITHUB_REPO_LINK/blob/main/visualizations/confusion_matrix_mobilenetv2.png)
-- [ROC Curve - MobileNetV2](YOUR_GITHUB_REPO_LINK/blob/main/visualizations/roc_curve_mobilenetv2.png)
+- [Confusion Matrix - MobileNetV2](https://github.com/webdevyyannah/LW5-Comparative_Analysis_of_Pre-trained_CNN_Models_for-_Custom_Image_Classification/blob/main/Visualizations/Accuracy%20%26%20Loss%20-%20EfficientNetB0.png)
+- [ROC Curve - MobileNetV2]()
 - [Accuracy & Loss - MobileNetV2](YOUR_GITHUB_REPO_LINK/blob/main/visualizations/accuracy_loss_mobilenetv2.png)
 - [Grad-CAM - MobileNetV2](YOUR_GITHUB_REPO_LINK/blob/main/visualizations/gradcam_mobilenetv2.png)
 
