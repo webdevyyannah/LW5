@@ -1,12 +1,78 @@
 # Laboratory Work 5: Comparative Analysis of Pre-trained CNN Models for Custom Image Classification
 
-## Performance Comparison Table
+## Complete Performance Comparison Table
 
-| Model          | Train Acc | Train Loss | Val Acc | Val Loss | Precision | Recall | F1-Score | AUC    |
-|----------------|-----------|------------|---------|----------|-----------|--------|----------|--------|
-| MobileNetV2    | 0.8788    | 0.4991     | 0.9330  | 0.3474   | 0.9351    | 0.9330 | 0.9333   | 0.9888 |
-| EfficientNetB0 | 0.0495    | 2.9972     | 0.0460  | 2.9970   | 0.0012    | 0.0350 | 0.0024   | 0.5024 |
-| ResNet50       | 0.0942    | 2.9342     | 0.0770  | 2.9272   | 0.0400    | 0.0700 | 0.0300   | 0.5983 |
+| Model | Train Accuracy | Train Loss | Test/Val Accuracy | Test/Val Loss | Precision | Recall | F1-Score | AUC |
+|---|---|---|---|---|---|---|---|---|
+| **Teachable Machine** | ~1.00 | ~0.05 | 1.00 | ~0.10 | 1.00 | 1.00 | 1.00 | N/A |
+| **1st Model** (LW1 - Fashion MNIST) | 0.9190 | 0.2200 | 0.8894 | 0.3780 | N/A | N/A | N/A | N/A |
+| **2nd Model** (LW3 - Custom CNN Baseline) | 0.9992 | 0.0072 | 0.9600 | 0.2420 | 0.84 | 0.82 | 0.82 | 0.9530 |
+| **Enhancement** (LW4 - Improved CNN) | 0.4260 | 1.8752 | 0.4700 | 1.7326 | N/A | N/A | N/A | N/A |
+| **3rd Model - The Good Model** (MobileNetV2) | 0.8788 | 0.4991 | 0.9330 | 0.3474 | 0.9351 | 0.9330 | 0.9333 | 0.9888 |
+| **Pre-trained Model 1** (MobileNetV2) | 0.8788 | 0.4991 | 0.9330 | 0.3474 | 0.9351 | 0.9330 | 0.9333 | 0.9888 |
+| **Pre-trained Model 2** (EfficientNetB0) | 0.0495 | 2.9972 | 0.0460 | 2.9970 | 0.0012 | 0.0350 | 0.0024 | 0.5024 |
+| **Pre-trained Model 3** (ResNet50) | 0.0942 | 2.9342 | 0.0770 | 2.9272 | 0.0400 | 0.0700 | 0.0300 | 0.5983 |
+
+---
+
+### Notes on Each Model
+
+**Teachable Machine (LW2-A)**
+- Platform: Google Teachable Machine
+- Dataset: 20 tree species, 250 images per class (5,000 total)
+- Parameters: 80 epochs, batch size 32, learning rate 0.00115
+- Result: 100% accuracy on all 20 classes with zero misclassifications
+- Note: Teachable Machine uses MobileNet internally as its base architecture
+  with ImageNet pre-trained weights, which explains its perfect performance
+  on a well-curated dataset.
+
+**Your 1st Model (LW1 - Fashion MNIST)**
+- Architecture: Simple Dense Neural Network
+  (Flatten → Dense 256 → Dense 64 → Dense 10)
+- Dataset: Fashion MNIST (10 classes, 60,000 training / 10,000 test images)
+- Parameters: 22 epochs, Adam optimizer
+- Result: Train Accuracy 0.9190, Test Accuracy 0.8894, Test Loss 0.3780
+- Note: This was a basic fully-connected neural network with no
+  convolutional layers, trained on grayscale 28x28 images. The absence
+  of CNN layers limited its feature extraction capability, explaining the
+  lower accuracy compared to CNN-based models.
+
+**Your 2nd Model (LW3 - Custom CNN Baseline)**
+- Architecture: Custom CNN
+  (Rescaling → Conv2D 16 → MaxPool → Conv2D 32 → MaxPool →
+  Conv2D 64 → MaxPool → Flatten → Dense 128 → Dense 20)
+- Dataset: 20 tree species, 5,002 images (80/20 split)
+- Parameters: 10 epochs, Adam optimizer
+- Result: Train Accuracy 0.9992, Val Accuracy 0.9600, Val Loss 0.2420
+- Note: This model showed signs of overfitting (train accuracy 99.92% vs
+  val accuracy 96%), but still achieved strong validation performance.
+  The LW4 evaluation further revealed per-class metrics:
+  Precision 0.84, Recall 0.82, F1 0.82, AUC 0.9530.
+
+**Enhancement (LW4 Activity 3 - Improved CNN)**
+- Architecture: Improved CNN with Data Augmentation, Batch Normalization,
+  Dropout (0.4 + 0.5), Dense 256, Early Stopping
+- Dataset: 20 tree species, 5,002 images (80/20 split)
+- Parameters: 20 epochs, Adam lr=0.0001, Early Stopping patience=3
+- Result: Train Accuracy 0.4260, Val Accuracy 0.4700, Val Loss 1.7326
+- Note: Despite lower accuracy numbers compared to the baseline, this
+  model showed healthy generalization behavior — validation accuracy
+  consistently exceeded training accuracy, indicating no overfitting.
+  The lower accuracy is due to the conservative learning rate and the
+  model needing more epochs to converge with the more complex architecture.
+
+**Your 3rd Model - The Good Model (MobileNetV2 - LW5)**
+- Architecture: MobileNetV2 (frozen) + GlobalAveragePooling2D +
+  Dense 128 (relu) + Dropout 0.5 + Dense 20
+- Dataset: 20 tree species, 5,002 images (80/20 split)
+- Parameters: 10 epochs, Adam lr=0.0001, Early Stopping patience=3
+- Result: Train Accuracy 0.8788, Val Accuracy 0.9330,
+  Precision 0.9351, Recall 0.9330, F1 0.9333, AUC 0.9888
+- Note: MobileNetV2 is designated as "The Good Model" because it achieved
+  the best balance of accuracy, generalization, and efficiency among all
+  models tested across all laboratory works. Its ImageNet pre-trained
+  weights provided strong feature representations that transferred
+  effectively to the 20-class tree classification task.
 
 ---
 
